@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Help</title>
+    <style>
+        em {
+            color: #456;
+        }
+    </style>
+</head>
+<body>
+    <h3 align="center">How to send message?</h3>
+    <div style="font-family: monospace; margin-left: 5%;">
+        url: "flask-mail-sender.herokuapp.com/send",<br>
+        method: "POST",<br>
+        data: {<br>
+        &emsp;&emsp;&emsp;&emsp;<i>/* required field */</i> receiver: <em>example@example.com</em>,<br>
+        &emsp;&emsp;&emsp;&emsp;<em>[optional_field_name: optional_filed_text]</em><br>
+        }
+    </div>
+    <br>
+    <h3 align="center">Result of request: message from <i>mailsenderflask@gmail.com</i></h3>
+    <div style="font-family: monospace; margin-left: 5%;">
+        <b>optional_field1_name:</b> optional_filed1_text<br>
+        <b>optional_field2_name:</b> optional_filed2_text<br>
+        <b>optional_field3_name:</b> optional_filed3_text<br>
+        <b>...</b><br>
+    </div>
+
+
+</body>
+</html>
