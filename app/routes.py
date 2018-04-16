@@ -1,11 +1,11 @@
-from app import app, mail, login
+from app import app, mail, db
 from flask import render_template, request, url_for, flash, redirect
 from flask_mail import Message
 from smtplib import SMTPException
 from werkzeug.datastructures import MultiDict
 from flask_login import current_user, login_user, login_required, logout_user
 from werkzeug.urls import url_parse
-from app.forms import LoginForm
+from app.forms import LoginForm, RegistrationForm
 from app.models import User
 
 
@@ -32,7 +32,24 @@ def login():
             next_page = url_for('index')
         flash('Successfully logged in !')
         return redirect(next_page)
-    return render_template('login.html', title='Sign In', form=form)
+    return render_template('login.html', title='Log In', form=form)
+
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if current_user.is_authenticated:
+        flash('Please, log out to register a new account!')
+        return redirect(url_for('index'))
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        user = User(email=form.email.data)
+        user.set_password(form.password.data)
+        db.session.add(user)
+        db.session.commit()
+        flash('You have registered successfully! Please, log in!')
+        return redirect(url_for('login'))
+    return render_template('register.html', title='Sign up', form=form)
+
 
 
 @app.route('/logout')

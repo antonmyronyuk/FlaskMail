@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Log In</h1>
+    <h1>Sign up</h1>
     <form action="" method="POST">
         {{ form.hidden_tag() }}
         <p>
@@ -18,10 +18,13 @@
             <span class="form-error"><br>{{ error }}</span>
             {% endfor %}
         </p>
-        <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
+        <p>
+            {{ form.password2.label }}<br>
+            {{ form.password2(size=32) }}<br>
+            {% for error in form.password2.errors %}
+            <span class="form-error"><br>{{ error }}</span>
+            {% endfor %}
+        </p>
         <p>{{ form.submit() }}</p>
     </form>
-    <div>
-        Not registered yet? Sign up <a href="{{ url_for('register') }}">here</a> for free!
-    </div>
 {% endblock %}
