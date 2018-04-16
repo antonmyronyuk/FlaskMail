@@ -11,4 +11,4 @@ mail = Mail(app)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
-from app import routes
+from app import routes, models
