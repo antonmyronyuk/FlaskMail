@@ -1,6 +1,7 @@
 import unittest
 from app import app, db
 from app.models import User
+from flask_login import logout_user, login_user
 
 
 class UserModelCase(unittest.TestCase):
@@ -19,3 +20,4 @@ class UserModelCase(unittest.TestCase):
         self.assertFalse(user.check_password('some_pass_1234'))
         self.assertFalse(user.check_password(''))
         self.assertFalse(user.check_password('sdsdsds'))
+
