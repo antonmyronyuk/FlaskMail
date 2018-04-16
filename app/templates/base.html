@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% if title %}
+        <title>FlaskMail - {{ title }}</title>
+        {% else %}
+        <title>FlaskMail</title>
+        {% endif %}
+        <style>
+        em {
+            color: #456;
+        }
+        </style>
+    </head>
+    <body>
+        <div>
+            Menu:
+            <a href="#">Home</a>
+        </div>
+        <hr>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        <hr>
+        {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </body>
+</html>

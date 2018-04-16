@@ -1,15 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Help</title>
-    <style>
-        em {
-            color: #456;
-        }
-    </style>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block content %}
+
     <h3 align="center">How to send message?</h3>
     <div style="font-family: monospace; margin-left: 5%;">
         url: "flask-mail-sender.herokuapp.com/send",<br>
@@ -28,6 +20,4 @@
         <b>...</b><br>
     </div>
 
-
-</body>
-</html>
+{% endblock %}
