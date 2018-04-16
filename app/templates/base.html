@@ -10,12 +10,21 @@
         em {
             color: #456;
         }
+        .form-error {
+            color: red;
+            font-family: monospace;
+        }
         </style>
     </head>
     <body>
         <div>
             Menu:
             <a href="#">Home</a>
+            {% if current_user.is_authenticated %}
+            <a href="{{ url_for('logout') }}">Logout</a>
+            {% else %}
+            <a href="{{ url_for('login') }}">Login</a>
+            {% endif %}
         </div>
         <hr>
         {% with messages = get_flashed_messages() %}
