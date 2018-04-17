@@ -54,7 +54,6 @@ def register():
     return render_template('register.html', title='Sign up', form=form)
 
 
-
 @app.route('/logout')
 def logout():
     logout_user()
@@ -64,12 +63,17 @@ def logout():
 
 @app.route('/help')
 def help_send():
-    return render_template('help.html')
+    return render_template('help.html', title='Help')
 
 
 @app.route('/checker')
 def checker():
     return render_template('form.html')
+
+
+@app.route('/all_users')
+def all_users():
+    return render_template('all_users.html', users=User.query.all(), title='All users')
 
 
 @app.route('/send', methods=['POST'])
