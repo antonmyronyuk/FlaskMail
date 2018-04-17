@@ -6,6 +6,7 @@ __pycache__/
 # other
 startapp
 app.db
+.idea/
 
 # C extensions
 *.so
