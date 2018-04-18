@@ -1,6 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
-    Profile: {{ current_user.email }}<br>
-    Token: {{ current_user.token }}
+    Profile: {{ current_user.email }}<br><br>
+    Token: {{ current_user.token }}<br><br><hr>
+    <ul>
+        {% for message in messages %}
+            <li>
+                Message: {{ message.text }}<br>
+                UTC time sent: {{ message.date }}
+            </li>
+        {% endfor %}
+    </ul>
 {% endblock %}

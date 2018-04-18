@@ -1,6 +1,7 @@
 from app import app, mail, db
 from flask import render_template, request, url_for, flash, redirect, jsonify
 from flask_mail import Message
+from sqlalchemy import desc
 from smtplib import SMTPException
 from werkzeug.datastructures import MultiDict
 from flask_login import current_user, login_user, login_required, logout_user
@@ -13,7 +14,10 @@ from app.models import User, Message
 @app.route('/index')
 @login_required
 def index():
-    return render_template('index.html')
+    return render_template(
+        'index.html',
+        messages=current_user.messages.order_by(desc(Message.date)),
+    )
 
 
 @app.route('/login', methods=['GET', 'POST'])
