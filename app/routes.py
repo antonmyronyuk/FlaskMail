@@ -1,12 +1,12 @@
 from app import app, mail, db
-from flask import render_template, request, url_for, flash, redirect
+from flask import render_template, request, url_for, flash, redirect, jsonify
 from flask_mail import Message
 from smtplib import SMTPException
 from werkzeug.datastructures import MultiDict
 from flask_login import current_user, login_user, login_required, logout_user
 from werkzeug.urls import url_parse
 from app.forms import LoginForm, RegistrationForm
-from app.models import User
+from app.models import User, Message
 
 
 @app.route('/')
@@ -81,7 +81,17 @@ def all_users():
 @app.route('/flask_send', methods=['POST'])
 def flask_send():
     data = request.form
-    print(data)
+    token = request.args.get('token')
+    user = User.query.filter_by(token=token).first()
+    if user is None:
+        return jsonify({'status': 'Not found'}), 404
+    # make message text
+    text = ' \n'.join(['{}: {}'.format(n, t) for n, t in data.items()])
+    message = Message(text=text, user_id=user.id)
+    db.session.add(message)
+    db.session.commit()
+
+    return jsonify({'status': 'OK'}), 200
 
 
 @app.route('/send', methods=['POST'])
