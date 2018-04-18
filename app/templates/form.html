@@ -42,7 +42,7 @@
                     alert("Your message was sent!");
 
                     $.ajax({
-                        url: "{{ url_for('send') }}",
+                        url: "{{ url_for('flask_send') }}",
                         method: "POST",
                         data: {
                             name: name,

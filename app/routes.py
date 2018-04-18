@@ -78,6 +78,12 @@ def all_users():
     return render_template('all_users.html', users=User.query.all(), title='All users')
 
 
+@app.route('/flask_send', methods=['POST'])
+def flask_send():
+    data = request.form
+    print(data)
+
+
 @app.route('/send', methods=['POST'])
 def send():
     data = MultiDict(request.form)
