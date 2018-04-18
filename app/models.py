@@ -15,8 +15,10 @@ class User(UserMixin, db.Model):
     password_hash = db.Column(db.String(128))
     token = db.Column(db.String(50))
 
+    # call only after adding user email
     def set_token(self):
-        self.token = hashlib.md5(bytes(self.email, encoding='utf-8'))\
+        self.token = hashlib\
+            .md5(bytes(self.email, encoding='utf-8'))\
             .hexdigest() + str(self.id)
 
     def set_password(self, password):
