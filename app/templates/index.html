@@ -3,18 +3,15 @@
 {% block content %}
     Profile: {{ current_user.email }}<br><br>
     Token: {{ current_user.token }}<br><br><hr>
+    <h3>Received messages:</h3>
     <ul id="messages">
         {% for message in messages %}
-            <li>Message:
-                {{ message.text }}<br>
-                UTC time sent: {{ message.date }}
+            <li>
+                Message:<br>
+                {{ message.get_html() | safe }}
             </li>
+            <hr>
         {% endfor %}
-    </ul>
-    <script>
-        let text = document.getElementById("messages").innerHTML;
-        document.getElementById("messages").innerHTML = text.replace(/\n/g, '<br>');
-        console.log(text);
 
-    </script>
+    </ul>
 {% endblock %}

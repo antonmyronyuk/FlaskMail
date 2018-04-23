@@ -15,7 +15,8 @@ from app.models import User, Message, MessageField
 @login_required
 def index():
     return render_template(
-        'index.html'
+        'index.html',
+        messages=current_user.messages.order_by(desc(Message.date))
     )
 
 
@@ -93,7 +94,7 @@ def flask_send():
     message = Message(user_id=user.id)
     db.session.add(message)
     db.session.commit()
-    print('message id = {}'.format(message.id))
+    # print('message id = {}'.format(message.id))
 
     # fill message fields
     for m_name, m_data in data.items():

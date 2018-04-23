@@ -36,6 +36,22 @@ class Message(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     fields = db.relationship('MessageField', backref='message', lazy='dynamic')
 
+    def get_html(self):
+        """
+        generate html representation of message
+        :return: str
+        """
+        # print(self.fields.all())
+
+        html = '<br>'.join(
+            ['<b>{}:</b> {}'.format(f.field_name, f.field_data)
+             for f in self.fields.all()]
+        )
+        # add time
+        html += '<br>received at: <em>{}</em>'.format(self.date)
+        return html
+
+
 
 class MessageField(db.Model):
     id = db.Column(db.Integer, primary_key=True)
