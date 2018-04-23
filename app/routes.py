@@ -7,7 +7,7 @@ from werkzeug.datastructures import MultiDict
 from flask_login import current_user, login_user, login_required, logout_user
 from werkzeug.urls import url_parse
 from app.forms import LoginForm, RegistrationForm
-from app.models import User, Message
+from app.models import User, Message, MessageField
 
 
 @app.route('/')
@@ -15,8 +15,7 @@ from app.models import User, Message
 @login_required
 def index():
     return render_template(
-        'index.html',
-        messages=current_user.messages.order_by(desc(Message.date)),
+        'index.html'
     )
 
 
@@ -89,10 +88,21 @@ def flask_send():
     user = User.query.filter_by(token=token).first()
     if user is None:
         return jsonify({'status': 'Not found'}), 404
-    # make message text
-    text = ' \n'.join(['{}: {}'.format(n, t) for n, t in data.items()])
-    message = Message(text=text, user_id=user.id)
+
+    # current message
+    message = Message(user_id=user.id)
     db.session.add(message)
+    db.session.commit()
+    print('message id = {}'.format(message.id))
+
+    # fill message fields
+    for m_name, m_data in data.items():
+        field = MessageField(
+            field_name=str(m_name),
+            field_data=str(m_data),
+            message_id=message.id
+        )
+        db.session.add(field)
     db.session.commit()
 
     return jsonify({'status': 'OK'}), 200

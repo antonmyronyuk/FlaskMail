@@ -32,7 +32,13 @@ class User(UserMixin, db.Model):
 
 class Message(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    text = db.Column(db.Text)
     date = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    fields = db.relationship('MessageField', backref='message', lazy='dynamic')
 
+
+class MessageField(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    field_name = db.Column(db.Text)
+    field_data = db.Column(db.Text)
+    message_id = db.Column(db.Integer, db.ForeignKey('message.id'))
