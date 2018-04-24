@@ -23,6 +23,7 @@ def index():
 @app.route('/delete_message/<int:message_id>')
 def delete_message(message_id):
     Message.query.filter_by(id=message_id).delete()
+    MessageField.query.filter_by(message_id=message_id).delete()
     db.session.commit()
     return redirect(url_for('index'))
 
