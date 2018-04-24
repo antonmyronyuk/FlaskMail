@@ -20,6 +20,13 @@ def index():
     )
 
 
+@app.route('/delete_message/<int:message_id>')
+def delete_message(message_id):
+    Message.query.filter_by(id=message_id).delete()
+    db.session.commit()
+    return redirect(url_for('index'))
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:

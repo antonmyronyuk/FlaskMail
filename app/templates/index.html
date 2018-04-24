@@ -8,7 +8,8 @@
         {% for message in messages %}
             <li>
                 Message:<br>
-                {{ message.get_html() | safe }}
+                {{ message.get_html() | safe }}<br>
+                <a href="{{ url_for('delete_message', message_id=message.id) }}">Delete</a>
             </li>
             <hr>
         {% endfor %}
