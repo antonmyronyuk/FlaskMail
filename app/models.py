@@ -1,4 +1,4 @@
-import hashlib
+import uuid
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
@@ -19,9 +19,7 @@ class User(UserMixin, db.Model):
 
     # call only after adding user email
     def set_token(self):
-        self.token = hashlib\
-            .md5(bytes(self.email, encoding='utf-8'))\
-            .hexdigest() + str(self.id)
+        self.token = uuid.uuid4().hex
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -50,7 +48,6 @@ class Message(db.Model):
         # add time
         html += '<br>received at: <em>{}</em>'.format(self.date)
         return html
-
 
 
 class MessageField(db.Model):
