@@ -42,9 +42,12 @@ class Message(db.Model):
         # print(self.fields.all())
 
         html = '<br>'.join(
-            ['<b>{}:</b> {}'.format(f.field_name, f.field_data)
-             for f in self.fields.all()]
+            ['<b>{}:</b> {}'.format(
+                f.field_name,
+                str(f.field_data).replace('\n', '<br>'))
+                for f in self.fields.all()]
         )
+        # print(html)
         # add time
         html += '<br>received at: <em>{}</em>'.format(self.date)
         return html
