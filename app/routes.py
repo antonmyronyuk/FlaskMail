@@ -117,6 +117,17 @@ def flask_send():
     return jsonify({'status': 'OK'}), 200
 
 
+@app.route('/set_mail_checkbox', methods=['POST'])
+def set_mail_checkbox():
+    # TODO: write checkbox status to database
+    try:
+        status = request.form['setter']
+    except:
+        status = 'off'
+    print(status)
+    return redirect(url_for('index'))
+
+
 @app.route('/send', methods=['POST'])
 def send():
     data = MultiDict(request.form)
