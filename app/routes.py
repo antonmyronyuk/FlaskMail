@@ -36,16 +36,16 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         if user is None:
-            flash('Invalid email!')
+            flash('Invalid email!', 'danger')
             return redirect(url_for('login'))
         if not user.check_password(form.password.data):
-            flash('Invalid password!')
+            flash('Invalid password!', 'danger')
             return redirect(url_for('login'))
         login_user(user, remember=form.remember_me.data)
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':
             next_page = url_for('index')
-        flash('Successfully logged in!')
+        flash('Successfully logged in!', 'success')
         return redirect(next_page)
     return render_template('login.html', title='Log In', form=form)
 
@@ -53,7 +53,7 @@ def login():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
-        flash('Please, log out to register a new account!')
+        flash('Please, log out to register a new account!', 'info')
         return redirect(url_for('index'))
     form = RegistrationForm()
     if form.validate_on_submit():
@@ -63,7 +63,7 @@ def register():
         db.session.commit()
         user.set_token()
         db.session.commit()
-        flash('You have registered successfully! Please, log in!')
+        flash('You have registered successfully! Please, log in!', 'success')
         return redirect(url_for('login'))
     return render_template('register.html', title='Sign up', form=form)
 
@@ -71,7 +71,7 @@ def register():
 @app.route('/logout')
 def logout():
     logout_user()
-    flash('Successfully logged out')
+    flash('Successfully logged out', 'success')
     return redirect(url_for('login'))
 
 

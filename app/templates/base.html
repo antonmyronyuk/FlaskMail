@@ -39,14 +39,20 @@
             </div>
         </nav>
         <div class="container">
-            {% with messages = get_flashed_messages() %}
-            {% if messages %}
-            {% for message in messages %}
-            <div class="alert alert-success" style="margin-top: 5px;">
-                <strong>{{ message }}</strong>
-            </div>
-            {% endfor %}
-            {% endif %}
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        {% if category|string() == 'message' %}
+                        <div class="alert alert-info" style="margin-top: 5px;">
+                            <strong>{{ message }}</strong>
+                        </div>
+                        {% else %}
+                        <div class="alert alert-{{ category }}" style="margin-top: 5px;">
+                            <strong>{{ message }}</strong>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
             {% endwith %}
             {% block content %}{% endblock %}
         </div>
