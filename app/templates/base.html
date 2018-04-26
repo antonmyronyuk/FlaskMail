@@ -15,28 +15,40 @@
             font-family: monospace;
         }
         </style>
+        <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+        <script src="/static/js/bootstrap.min.js"></script>
     </head>
     <body>
-        <div>
-            Menu:
-            <a href="{{ url_for('index') }}">Home</a>
-            {% if current_user.is_authenticated %}
-            <a href="{{ url_for('logout') }}">Logout</a>
-            {% else %}
-            <a href="{{ url_for('login') }}">Login</a>
-            {% endif %}
-        </div>
-        <hr>
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        <ul>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="{{ url_for('index') }}">Home</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    {% if current_user.is_authenticated %}
+                    <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
+                    {% else %}
+                    <a class="nav-item nav-link" href="{{ url_for('login') }}">Login</a>
+                    {% endif %}
+                </div>
+            </div>
+        </nav>
+        <div class="container">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
             {% for message in messages %}
-            <li>{{ message }}</li>
+            <div class="alert alert-success" style="margin-top: 5px;">
+                <strong>{{ message }}</strong>
+            </div>
             {% endfor %}
-        </ul>
-        <hr>
-        {% endif %}
-        {% endwith %}
-        {% block content %}{% endblock %}
+            {% endif %}
+            {% endwith %}
+            {% block content %}{% endblock %}
+        </div>
     </body>
 </html>
