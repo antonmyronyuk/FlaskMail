@@ -16,7 +16,8 @@ from app.models import User, Message, MessageField
 def index():
     return render_template(
         'index.html',
-        messages=current_user.messages.order_by(desc(Message.date))
+        messages=current_user.messages.order_by(desc(Message.date)),
+        checkbox_status=current_user.email_notifications_status()
     )
 
 
@@ -119,12 +120,13 @@ def flask_send():
 
 @app.route('/set_mail_checkbox', methods=['POST'])
 def set_mail_checkbox():
-    # TODO: write checkbox status to database
     try:
         status = request.form['setter']
     except:
         status = 'off'
     print(status)
+    current_user.email_notifications = True if status == 'on' else False
+    db.session.commit()
     return redirect(url_for('index'))
 
 

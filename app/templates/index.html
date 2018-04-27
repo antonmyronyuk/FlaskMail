@@ -10,8 +10,7 @@
     Send email:<br>
     <form action="/set_mail_checkbox" method="POST">
         <label for="setter" class="switch">
-        <!--TODO: add function for setting correct checkbox status -->
-        <input name="setter" id="setter" type="checkbox" onchange=this.form.submit() checked>
+        <input name="setter" id="setter" type="checkbox" onchange=this.form.submit() {{ checkbox_status }}>
         <span class="slider round"></span>
     </label>
     </form>
