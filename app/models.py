@@ -28,6 +28,13 @@ class User(UserMixin, db.Model):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
+    def email_notifications_status(self):
+        """
+        get checkbox status
+        :return: str
+        """
+        return 'checked' if self.email_notifications else ''
+
 
 class Message(db.Model):
     id = db.Column(db.Integer, primary_key=True)
