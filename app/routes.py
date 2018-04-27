@@ -1,11 +1,13 @@
-from app import app, mail, db
+from smtplib import SMTPException
+
+from sqlalchemy import desc
+from werkzeug.datastructures import MultiDict
+from werkzeug.urls import url_parse
 from flask import render_template, request, url_for, flash, redirect, jsonify
 from flask_mail import Message
-from sqlalchemy import desc
-from smtplib import SMTPException
-from werkzeug.datastructures import MultiDict
 from flask_login import current_user, login_user, login_required, logout_user
-from werkzeug.urls import url_parse
+
+from app import app, mail, db
 from app.forms import LoginForm, RegistrationForm
 from app.models import User, Message, MessageField
 

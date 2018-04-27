@@ -1,7 +1,7 @@
 import unittest
+
 from app import app, db
 from app.models import User
-from flask_login import logout_user, login_user
 
 
 class UserModelCase(unittest.TestCase):
