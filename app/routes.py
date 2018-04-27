@@ -1,15 +1,12 @@
-from smtplib import SMTPException
-
 from sqlalchemy import desc
-from werkzeug.datastructures import MultiDict
 from werkzeug.urls import url_parse
 from flask import render_template, request, url_for, flash, redirect, jsonify
-from flask_mail import Message
 from flask_login import current_user, login_user, login_required, logout_user
 
-from app import app, mail, db
+from app import app, db
 from app.forms import LoginForm, RegistrationForm
 from app.models import User, Message, MessageField
+from app.email import send_email
 
 
 @app.route('/')
@@ -105,7 +102,6 @@ def flask_send():
     message = Message(user_id=user.id)
     db.session.add(message)
     db.session.commit()
-    # print('message id = {}'.format(message.id))
 
     # fill message fields
     for m_name, m_data in data.items():
@@ -116,6 +112,10 @@ def flask_send():
         )
         db.session.add(field)
     db.session.commit()
+
+    # send on email
+    if current_user.email_notifications:
+        send_email(user, message)
 
     return jsonify({'status': 'OK'}), 200
 
@@ -130,25 +130,3 @@ def set_mail_checkbox():
     current_user.email_notifications = True if status == 'on' else False
     db.session.commit()
     return redirect(url_for('index'))
-
-
-@app.route('/send', methods=['POST'])
-def send():
-    data = MultiDict(request.form)
-    del data['receiver']
-
-    # make message text
-    text = '<br>'.join(['<b>{}:</b> {}'.format(n, t) for n, t in data.items()])
-
-    msg = Message(
-        'FlaskMail',
-        recipients=[request.form['receiver']],
-        html=text
-    )
-    try:
-        with app.app_context():
-            mail.send(msg)
-    except SMTPException as e:
-        return str(e), 500
-
-    return 'Success', 200
