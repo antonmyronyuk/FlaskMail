@@ -2,6 +2,16 @@
 
 {% block content %}
 
+    {% if what %}
+    <h3 align="center">What is it?</h3>
+    <center style="font-size: 18px;">
+        It is convenient service for sending emails directly from your frontend.<br>
+        You don't need to write your own server! You can use this service for free!<br>
+        Just register, get token and follow instructions below!<br>Have fun!
+    </center>
+    <br>
+    {% endif %}
+
     <h3 align="center">How to send?</h3>
     <div style="font-family: monospace; margin-left: 5%;">
         url: "some.address.com/flask_send?token=&lt;your-token&gt;",<br>

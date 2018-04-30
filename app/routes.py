@@ -80,6 +80,11 @@ def help_send():
     return render_template('help.html', title='Help')
 
 
+@app.route('/what_is_it')
+def what_is_it():
+    return render_template('help.html', title='What is it?', what=True)
+
+
 @app.route('/checker')
 def checker():
     return render_template('form.html')
