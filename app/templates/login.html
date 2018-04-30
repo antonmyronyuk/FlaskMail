@@ -4,22 +4,25 @@
     <h1>Log In</h1>
     <form action="" method="POST">
         {{ form.hidden_tag() }}
-        <p>
-            {{ form.email.label }}<br>
-            {{ form.email(size=32) }}<br>
+        <div class="form-group">
+            {{ form.email.label }}
+            {{ form.email(class="form-control") }}
             {% for error in form.email.errors %}
-            <span class="form-error"><br>{{ error }}</span>
+            <span class="form-error">{{ error }}</span>
             {% endfor %}
-        </p>
-        <p>
-            {{ form.password.label }}<br>
-            {{ form.password(size=32) }}<br>
+        </div>
+        <div class="form-group">
+            {{ form.password.label }}
+            {{ form.password(class="form-control") }}
             {% for error in form.password.errors %}
-            <span class="form-error"><br>{{ error }}</span>
+            <span class="form-error">{{ error }}</span>
             {% endfor %}
-        </p>
-        <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
-        <p>{{ form.submit() }}</p>
+        </div>
+        <div class="form-check">
+            {{ form.remember_me(class="form-check-input") }} 
+            {{ form.remember_me.label(class="form-check-label") }}
+        </div>
+        <br>{{ form.submit(class="btn btn-primary login-button") }}<hr>
     </form>
     <div>
         Not registered yet? Sign up <a href="{{ url_for('register') }}">here</a> for free!

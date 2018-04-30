@@ -56,3 +56,17 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 } 
+
+.login-button, .register-button {
+    min-width: 150px;
+    max-width: 150px;
+}
+
+em {
+    color: #456;
+}
+.form-error {
+    color: red;
+    font-family: Arial;
+    font-size: 16px;
+}
