@@ -70,3 +70,40 @@ em {
     font-family: Arial;
     font-size: 16px;
 }
+
+body > .container {
+  padding-top: 10px;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 70px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 40px;
+  line-height: 40px; /* Vertically center the text there */
+}
+
+.footer-text {
+    color: #f9f9f9;
+}
+
+.footer > .container > .footer-text > a {
+    color: #5AF;
+}
+
+.footer > .container > .footer-text > a:hover {
+    color: #37F;
+}
+
+.footer > .container > .footer-text > a:visited{
+    color: #A8F;
+}
