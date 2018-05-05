@@ -59,8 +59,13 @@ class Message(db.Model):
         )
         # print(html)
         # add time
-        html += '<br>received at: <em>{}</em>'.format(self.date)
-        return html
+        html += '<br>received at: <em></em>'
+        # TODO: add normal date translation
+        html += '<script> document.getElementById("msg' + str(self.id) +\
+                '").children[6].innerHTML = (new Date("{:%Y/%m/%d %H:%M:%S}' \
+                ' UTC")).toLocaleString() </script >'.format(self.date)
+
+        return '<div id = "msg' + str(self.id) + '">' + html + '</div>'
 
 
 class MessageField(db.Model):
