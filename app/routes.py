@@ -134,4 +134,5 @@ def set_mail_checkbox():
     print(status)
     current_user.email_notifications = True if status == 'on' else False
     db.session.commit()
+    flash('Email notifications ' + status, 'success')
     return redirect(url_for('index'))
