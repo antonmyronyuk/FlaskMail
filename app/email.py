@@ -1,8 +1,9 @@
 from threading import Thread
 
+from flask import current_app
 from flask_mail import Message as FlaskMessage
 
-from app import mail, app
+from app import mail
 from app.models import User, Message
 
 
@@ -12,6 +13,7 @@ def send_async_email(app, msg):
 
 
 def send_email(user: User, message: Message):
+    app = current_app._get_current_object()
     print(app.config['MAIL_DEFAULT_SENDER'])
     msg = FlaskMessage(
         subject='FlaskMail',

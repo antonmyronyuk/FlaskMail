@@ -17,7 +17,7 @@
             </form>
         </div>
     </div>
-    <em>How to send messages? See <a href="{{ url_for('help_send') }}">there</a>.</em>
+    <em>How to send messages? See <a href="{{ url_for('main.help_send') }}">there</a>.</em>
     <hr>
 
 
@@ -26,7 +26,7 @@
         {% for message in messages %}
             <li class="list-group-item">
                 {{ message.get_html() | safe }}<br>
-                <a href="{{ url_for('delete_message', message_id=message.id) }}">Delete</a>
+                <a href="{{ url_for('main.delete_message', message_id=message.id) }}">Delete</a>
             </li>
         {% endfor %}
 

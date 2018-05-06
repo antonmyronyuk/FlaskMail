@@ -25,7 +25,7 @@
         <br>{{ form.submit(class="btn btn-primary login-button") }}<hr>
     </form>
     <div>
-        Not registered yet? Sign up <a href="{{ url_for('register') }}">here</a> for free!<hr>
-        What is it? See <a href="{{ url_for('what_is_it') }}">there</a>.</em>
+        Not registered yet? Sign up <a href="{{ url_for('auth.register') }}">here</a> for free!<hr>
+        What is it? See <a href="{{ url_for('main.what_is_it') }}">there</a>.</em>
     </div>
 {% endblock %}
