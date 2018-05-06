@@ -72,7 +72,7 @@ def flask_send():
     db.session.commit()
 
     # send on email
-    if current_user.email_notifications:
+    if user.email_notifications:
         send_email(user, message)
 
     return jsonify({'status': 'OK'}), 200
