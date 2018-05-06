@@ -26,7 +26,11 @@
         {% for message in messages %}
             <li class="list-group-item">
                 {{ message.get_html() | safe }}<br>
-                <a href="{{ url_for('main.delete_message', message_id=message.id) }}">Delete</a>
+                received at:
+                <em><script>
+                    document.write((new Date("{{ message.get_utc_datetime() }}")).toLocaleString())
+                </script></em>
+                <br><a href="{{ url_for('main.delete_message', message_id=message.id) }}">Delete</a>
             </li>
         {% endfor %}
 

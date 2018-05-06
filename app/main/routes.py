@@ -20,6 +20,7 @@ def index():
 
 
 @bp.route('/delete_message/<int:message_id>')
+@login_required
 def delete_message(message_id):
     Message.query.filter_by(id=message_id).delete()
     MessageField.query.filter_by(message_id=message_id).delete()
@@ -78,6 +79,7 @@ def flask_send():
 
 
 @bp.route('/set_mail_checkbox', methods=['POST'])
+@login_required
 def set_mail_checkbox():
     try:
         status = request.form['setter']

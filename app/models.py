@@ -57,12 +57,11 @@ class Message(db.Model):
                 str(f.field_data).replace('\n', '<br>'))
                 for f in self.fields.all()]
         )
-        # print(html)
-        # add time
-        html += '<br>received at: <em><script>document.write((new ' \
-                'Date("{:%Y/%m/%d %H:%M:%S} UTC")).toLocaleString())</script></em>'.format(self.date)
 
         return html
+
+    def get_utc_datetime(self):
+        return '{:%Y/%m/%d %H:%M:%S} UTC'.format(self.date)
 
 
 class MessageField(db.Model):
