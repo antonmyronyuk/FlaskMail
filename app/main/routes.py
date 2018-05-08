@@ -1,5 +1,7 @@
 from sqlalchemy import desc
-from flask import render_template, request, url_for, flash, redirect, jsonify
+from flask import (
+    render_template, request, url_for, flash, redirect, jsonify, make_response
+)
 from flask_login import current_user, login_required
 
 from app import db
@@ -48,13 +50,15 @@ def all_users():
     return render_template('all_users.html', users=User.query.all(), title='All users')
 
 
-@bp.route('/flask_send', methods=['POST'])
+@bp.route('/send', methods=['POST'])
 def flask_send():
     data = request.form
     token = request.args.get('token')
     user = User.query.filter_by(token=token).first()
     if user is None:
-        return jsonify({'status': 'Not found'}), 404
+        resp = make_response(jsonify({'status': 'Not found'}), 404)
+        resp.headers['Access-Control-Allow-Origin'] = '*'
+        return resp
 
     # current message
     message = Message(user_id=user.id)
@@ -75,7 +79,9 @@ def flask_send():
     if user.email_notifications:
         send_email(user, message)
 
-    return jsonify({'status': 'OK'}), 200
+    resp = make_response(jsonify({'status': 'OK'}), 200)
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    return resp
 
 
 @bp.route('/set_mail_checkbox', methods=['POST'])
