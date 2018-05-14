@@ -1,6 +1,7 @@
 from sqlalchemy import desc
 from flask import (
-    render_template, request, url_for, flash, redirect, jsonify, make_response
+    render_template, request, url_for, flash,
+    redirect, jsonify, make_response, escape
 )
 from flask_login import current_user, login_required
 
@@ -68,8 +69,8 @@ def flask_send():
     # fill message fields
     for m_name, m_data in data.items():
         field = MessageField(
-            field_name=str(m_name),
-            field_data=str(m_data),
+            field_name=escape(str(m_name)),
+            field_data=escape(str(m_data)),
             message_id=message.id
         )
         db.session.add(field)

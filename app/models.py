@@ -1,6 +1,7 @@
 import uuid
 from datetime import datetime
 
+from jinja2 import Markup
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
@@ -58,7 +59,7 @@ class Message(db.Model):
                 for f in self.fields.all()]
         )
 
-        return html
+        return Markup(html)
 
     def get_utc_datetime(self):
         return '{:%Y/%m/%d %H:%M:%S} UTC'.format(self.date)

@@ -25,7 +25,7 @@
     <ul class="list-group" id="messages">
         {% for message in messages %}
             <li class="list-group-item">
-                {{ message.get_html() | safe }}<br>
+                {{ message.get_html() }}<br>
                 received at:
                 <em><script>
                     document.write((new Date("{{ message.get_utc_datetime() }}")).toLocaleString())
