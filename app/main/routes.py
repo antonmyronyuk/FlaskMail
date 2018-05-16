@@ -57,7 +57,7 @@ def flask_send():
     token = request.args.get('token')
     user = User.query.filter_by(token=token).first()
     if user is None:
-        resp = make_response(jsonify({'status': 'Not found'}), 404)
+        resp = make_response(jsonify({'status': 'Not found user'}), 404)
         resp.headers['Access-Control-Allow-Origin'] = '*'
         return resp
 
@@ -80,7 +80,7 @@ def flask_send():
     if user.email_notifications:
         send_email(user, message)
 
-    resp = make_response(jsonify({'status': 'OK'}), 200)
+    resp = make_response(jsonify({'status': 'Created new message'}), 201)
     resp.headers['Access-Control-Allow-Origin'] = '*'
     return resp
 
