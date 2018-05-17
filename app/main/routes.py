@@ -22,12 +22,13 @@ def index():
     )
 
 
-@bp.route('/delete_message/<int:message_id>')
+@bp.route('/delete_message/<int:message_id>', methods=['POST'])
 @login_required
 def delete_message(message_id):
     MessageField.query.filter_by(message_id=message_id).delete()
     Message.query.filter_by(id=message_id).delete()
     db.session.commit()
+    flash('Your message was removed successfully!', 'success')
     return redirect(url_for('main.index'))
 
 
