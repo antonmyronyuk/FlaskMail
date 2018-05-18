@@ -1,6 +1,8 @@
 # FlaskMail
 <a href='https://flask-ms.herokuapp.com'>https://flask-ms.herokuapp.com</a><br>
-How to use? Follow instructions <a href='https://flask-ms.herokuapp.com/what_is_it'>there</a>.
+How to use? Follow instructions <a href='https://flask-ms.herokuapp.com/what_is_it'>there</a>.<br>
+Simple example (curl POST):<br><br>
+<img src="/for_readme/curl.png">
 
 # Your site
 (especially github pages)<br><br>
